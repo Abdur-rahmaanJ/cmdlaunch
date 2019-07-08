@@ -34,15 +34,15 @@ class MyFirstGUI:
         self.photo = ''
         self.icons = []
         self.commands = []
-        print('programs:', self.programs)
+        #print('programs:', self.programs)
         for i, program in enumerate(self.programs):
-            print('entered', program)
+            #print('entered', program)
             jsonpath = 'programs/{}/cmdlaunch.json'.format(program)
-            print('opening json path', jsonpath)
+            #print('opening json path', jsonpath)
             info = jload(open(jsonpath))
-            print('info looks like', end='\n\n')
-            pretty(info)
-            print(end='\n\n')
+            #print('info looks like', end='\n\n')
+            #pretty(info)
+            #print(end='\n\n')
             photo = PhotoImage(file = 'icons/'+info['icon']) 
             photoimage = photo.subsample(3, 3) 
             self.icons.append(Icon(photoimage, info, program))
@@ -51,27 +51,30 @@ class MyFirstGUI:
 
         pretty(self.icons)
         for i, icon in enumerate(self.icons):
-            print('// entering', icon.program)
-            print('icons ... ... ... ...')
-            pretty(icon.info, icon.program)
-            x = Button(root, text=icon.info['name'] +'\n' + icon.info['version'], 
+            #print('// entering', icon.program)
+            #print('icons ... ... ... ...')
+            #pretty(icon.info, icon.program)
+            self.x = Button(root, text=icon.info['name'] +'\n' + icon.info['version'], 
                         image=icon.photo,
                         compound=LEFT,
-                        command=lambda: self.button_exec(icon))
-            x.grid(row=0, column=i)
+                        command=lambda icon=icon: self.button_exec(icon))
+            self.x.grid(row=0, column=i)
 
     def button_exec(self, icon):
         os.chdir('programs/'+icon.program)
         for command in icon.info['commands']:
-            print(command)
-        print(f'''
-            The following button with info was clicked:
-            program:{icon.program}
-            name:{icon.info['name']}
-            version:{icon.info['version']}
-            icon:{icon.info['icon']}
-            commands:{icon.info['commands']}
-            ''')
+            # print(command)
+            os.system(command)
+        
+#        print(f'''
+#            The following button with info was clicked:
+#            program:{icon.program}
+#            name:{icon.info['name']}
+#            version:{icon.info['version']}
+#            icon:{icon.info['icon']}
+#            commands:{icon.info['commands']}
+#            ''')
+        
         os.chdir('../..')
 
 my_gui = MyFirstGUI(root)

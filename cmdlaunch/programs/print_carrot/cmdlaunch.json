@@ -1,7 +1,7 @@
 {
 	"name":"print carrots",
 	"version":"1.0.0",
-	"icon":"pymug.png",
+	"icon":"flask.png",
 	"commands":[
 		"python print_carrots.py"
 	]

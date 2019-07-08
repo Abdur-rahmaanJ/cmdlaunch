@@ -1,0 +1,9 @@
+{
+	"name":"print test",
+	"version":"1.0.0",
+	"icon":"pymug.png",
+	"commands":[
+		"python iloop.py",
+		"python print_test.py"
+	]
+}

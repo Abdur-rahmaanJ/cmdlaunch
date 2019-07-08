@@ -1,0 +1,8 @@
+{
+	"name":"print dots",
+	"version":"1.0.0",
+	"icon":"pymug.png",
+	"commands":[
+		"python print_dots.py"
+	]
+}

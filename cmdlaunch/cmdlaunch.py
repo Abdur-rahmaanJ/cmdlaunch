@@ -3,11 +3,11 @@ import os
 from tkinter import *
 from tkinter.ttk import *
 import pprint
-# alising
 
+# aliasing
 ask = input
 pp = pprint.PrettyPrinter(indent=4)
-
+jload = json.load
 
 def pretty(*args):
     for arg in args:
@@ -24,9 +24,8 @@ class Icon:
 
 root = Tk()
 
-jload = json.load
 
-class MyFirstGUI:
+class CmdGUI:
     def __init__(self, master):
         self.master = master
 
@@ -36,24 +35,17 @@ class MyFirstGUI:
         self.commands = []
         #print('programs:', self.programs)
         for i, program in enumerate(self.programs):
-            #print('entered', program)
             jsonpath = 'programs/{}/cmdlaunch.json'.format(program)
-            #print('opening json path', jsonpath)
             info = jload(open(jsonpath))
-            #print('info looks like', end='\n\n')
-            #pretty(info)
-            #print(end='\n\n')
             photo = PhotoImage(file = 'icons/'+info['icon']) 
             photoimage = photo.subsample(3, 3) 
             self.icons.append(Icon(photoimage, info, program))
             self.commands.append(info['commands'])
 
 
-        pretty(self.icons)
+        # pretty(self.icons)
+        # Twice the loop to preserve image reference
         for i, icon in enumerate(self.icons):
-            #print('// entering', icon.program)
-            #print('icons ... ... ... ...')
-            #pretty(icon.info, icon.program)
             self.x = Button(root, text=icon.info['name'] +'\n' + icon.info['version'], 
                         image=icon.photo,
                         compound=LEFT,
@@ -63,7 +55,6 @@ class MyFirstGUI:
     def button_exec(self, icon):
         os.chdir('programs/'+icon.program)
         for command in icon.info['commands']:
-            # print(command)
             os.system(command)
         
 #        print(f'''
@@ -77,5 +68,5 @@ class MyFirstGUI:
         
         os.chdir('../..')
 
-my_gui = MyFirstGUI(root)
+cmdlaunch = CmdGUI(root)
 root.mainloop()

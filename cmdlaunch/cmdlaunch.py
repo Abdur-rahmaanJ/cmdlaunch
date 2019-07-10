@@ -33,6 +33,7 @@ class CmdGUI:
         self.photo = ''
         self.icons = []
         self.commands = []
+        self.COLUMN_SIZE = 5
         #print('programs:', self.programs)
         for i, program in enumerate(self.programs):
             jsonpath = 'programs/{}/cmdlaunch.json'.format(program)
@@ -50,7 +51,7 @@ class CmdGUI:
                         image=icon.photo,
                         compound=LEFT,
                         command=lambda icon=icon: self.button_exec(icon))
-            self.x.grid(row=0, column=i)
+            self.x.grid(row=i // self.COLUMN_SIZE, column=i % self.COLUMN_SIZE)
 
     def button_exec(self, icon):
         os.chdir('programs/'+icon.program)

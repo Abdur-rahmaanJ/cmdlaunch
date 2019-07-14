@@ -3,11 +3,15 @@ import os
 from tkinter import *
 from tkinter.ttk import *
 import pprint
+from PIL import Image, ImageTk
 
 # aliasing
 ask = input
 pp = pprint.PrettyPrinter(indent=4)
 jload = json.load
+
+#imagesize (width, height) in pixels
+imagesize = (80, 80)
 
 def pretty(*args):
     for arg in args:
@@ -38,8 +42,8 @@ class CmdGUI:
         for i, program in enumerate(self.programs):
             jsonpath = 'programs/{}/cmdlaunch.json'.format(program)
             info = jload(open(jsonpath))
-            photo = PhotoImage(file = 'icons/'+info['icon']) 
-            photoimage = photo.subsample(3, 3) 
+            photo = Image.open('icons/'+info['icon'])
+            photoimage = ImageTk.PhotoImage(photo.resize(imagesize))
             self.icons.append(Icon(photoimage, info, program))
             self.commands.append(info['commands'])
 

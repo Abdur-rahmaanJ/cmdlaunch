@@ -1,0 +1,8 @@
+{
+	"name":"print pattern",
+	"version":"1.0.0",
+	"icon":"pattern.png",
+	"commands":[
+		"python pattern.py"
+	]
+}

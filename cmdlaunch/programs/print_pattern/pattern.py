@@ -9,7 +9,7 @@ t.speed(0)
 
 
 def square(t, size):
-    for tmp in range(0,4):
+    for tmp in range(0, 4):
         t.forward(size)
         t.right(90)
 
